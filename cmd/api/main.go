@@ -32,6 +32,7 @@ func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /post", srv.GetPosts)
 	mux.HandleFunc("GET /post/{id}", srv.GetPost)
+	mux.HandleFunc("GET /comment/{id}", srv.GetComments)
 
 	middlewareMux := mw.SecurityHeadersMiddleware(mw.LoggingMiddleware(mux))
 

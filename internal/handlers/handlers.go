@@ -64,6 +64,28 @@ func (s *Server) GetPost(w http.ResponseWriter, r *http.Request) {
 	}.Write(w)
 }
 
+func (s *Server) GetComments(w http.ResponseWriter, r *http.Request) {
+	idStr := r.PathValue("id")
+
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		http.Error(w, "invalid id", http.StatusBadRequest)
+		return
+	}
+
+	comments, err := s.db.ListCommentsByPost(id)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusNotFound)
+		return
+	}
+
+	Response{
+		Message: "Success",
+		Status: "ok",
+		Content: comments,
+	}.Write(w)
+}
+
 func (s *Server) HealthCheck(w http.ResponseWriter, r *http.Request) {
 	Response{
 		Message: "Success",
