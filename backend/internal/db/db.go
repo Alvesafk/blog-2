@@ -29,6 +29,7 @@ func (db *DB) migrate() error {
 		CREATE TABLE IF NOT EXISTS posts (
 			id SERIAL PRIMARY KEY,
 			title TEXT NOT NULL,
+			slug_title TEXT NOT NULL,
 			content TEXT NOT NULL,
 			posted_at TIMESTAMPTZ NOT NULL DEFAULT now(),
 			tags TEXT[]

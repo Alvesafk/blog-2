@@ -5,15 +5,17 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/gosimple/slug"
 	"github.com/lib/pq"
 )
 
 type Post struct {
-	ID       int            `json:"id"`
-	Title    string         `json:"title"`
-	Content  string         `json:"content"`
-	PostedAt time.Time      `json:"postedAt"`
-	Tags     pq.StringArray `json:"tags"`
+	ID        int            `json:"id"`
+	Title     string         `json:"title"`
+	SlugTitle string         `json:"slug_title"`
+	Content   string         `json:"content"`
+	PostedAt  time.Time      `json:"postedAt"`
+	Tags      pq.StringArray `json:"tags"`
 }
 
 type Comment struct {
@@ -27,8 +29,8 @@ type Comment struct {
 func (db *DB) InsertPost(title, content string, tags []string) (int, error) {
 	var id int
 	err := db.conn.QueryRow(
-		`INSERT INTO posts (title, content, tags) VALUES ($1, $2, $3) RETURNING id`,
-		title, content, pq.Array(tags),
+		`INSERT INTO posts (title, slug_title, content, tags) VALUES ($1, $2, $3, $4) RETURNING id`,
+		title, slug.Make(title),content, pq.Array(tags),
 	).Scan(&id)
 
 	return id, err
