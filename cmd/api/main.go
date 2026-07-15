@@ -7,6 +7,7 @@ import (
 
 	"github.com/Alvesafk/blog-2/internal/db"
 	"github.com/Alvesafk/blog-2/internal/handlers"
+	mw "github.com/Alvesafk/blog-2/internal/middlewares"
 	"github.com/joho/godotenv"
 )
 
@@ -32,5 +33,7 @@ func main() {
 	mux.HandleFunc("GET /post", srv.GetPosts)
 	mux.HandleFunc("GET /post/{id}", srv.GetPost)
 
-	http.ListenAndServe(":8080", mux)
+	middlewareMux := mw.SecurityHeadersMiddleware(mw.LoggingMiddleware(mux))
+
+	http.ListenAndServe(":8080", middlewareMux)
 }

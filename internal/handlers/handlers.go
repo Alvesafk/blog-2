@@ -18,6 +18,12 @@ type Response struct {
 	Content any    `json:"content"`
 }
 
+func (r Response) Write(w http.ResponseWriter) {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(r)
+}
+
 func NewServer(db *db.DB) *Server {
 	return &Server{db: db}
 }
@@ -29,15 +35,11 @@ func (s *Server) GetPosts(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	response := Response{
+	Response{
 		Message: "Success",
 		Status:  "ok",
 		Content: posts,
-	}
-
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(response)
+	}.Write(w)
 }
 
 func (s *Server) GetPost(w http.ResponseWriter, r *http.Request) {
@@ -55,5 +57,17 @@ func (s *Server) GetPost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	json.NewEncoder(w).Encode(post)
+	Response{
+		Message: "Success",
+		Status:  "ok",
+		Content: post,
+	}.Write(w)
+}
+
+func (s *Server) HealthCheck(w http.ResponseWriter, r *http.Request) {
+	Response{
+		Message: "Success",
+		Status:  "healthy",
+		Content: "",
+	}.Write(w)
 }
