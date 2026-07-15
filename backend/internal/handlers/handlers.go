@@ -1,11 +1,14 @@
 package handlers
 
 import (
+	"bytes"
 	"encoding/json"
+	"log"
 	"net/http"
 	"strconv"
 
 	"github.com/Alvesafk/blog-2/internal/db"
+	"github.com/yuin/goldmark"
 )
 
 type Connection struct {
@@ -26,7 +29,9 @@ type Response struct {
 func (r Response) Write(w http.ResponseWriter) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(r)
+	enc := json.NewEncoder(w)
+	enc.SetEscapeHTML(false)
+	enc.Encode(r)
 }
 
 func (s *Connection) GetPosts(w http.ResponseWriter, r *http.Request) {
@@ -65,6 +70,23 @@ func (s *Connection) GetPost(w http.ResponseWriter, r *http.Request) {
 	}.Write(w)
 }
 
+func (s *Connection) GetLatestPost(w http.ResponseWriter, r *http.Request) {
+	posts, err := s.db.ListPosts()
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	latestPost := posts[len(posts) - 1]
+	latestPost.Content = mdToHtml(latestPost.Content)
+
+	Response{
+		Message: "Success",
+		Status: "ok",
+		Content: latestPost,
+	}.Write(w)
+}
+
 func (s *Connection) GetComments(w http.ResponseWriter, r *http.Request) {
 	idStr := r.PathValue("id")
 
@@ -93,4 +115,13 @@ func (s *Connection) HealthCheck(w http.ResponseWriter, r *http.Request) {
 		Status:  "healthy",
 		Content: "",
 	}.Write(w)
+}
+
+func mdToHtml(md string) string {
+	var buf bytes.Buffer
+	if err := goldmark.Convert([]byte(md), &buf); err != nil {
+		log.Fatal(err)
+	}
+
+	return buf.String()
 }
