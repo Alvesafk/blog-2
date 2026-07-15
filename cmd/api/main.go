@@ -38,7 +38,7 @@ func main() {
 	mux.HandleFunc("GET /post/{id}", con.GetPost)
 	mux.HandleFunc("GET /comment/{id}", con.GetComments)
 
-	middlewareMux := mw.SecurityHeadersMiddleware(mw.LoggingMiddleware(mux))
+	middlewareMux := mw.SecurityHeadersMiddleware(mw.LoggingMiddleware(mw.RecoverMiddleware(mux)))
 
 	srv := &http.Server{
 		Addr:              ":8080",
@@ -49,7 +49,7 @@ func main() {
 		ReadHeaderTimeout: 3 * time.Second,
 	}
 
-	go func(){
+	go func() {
 		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 			log.Fatalf("error in booting the server: %s", err)
 		}
