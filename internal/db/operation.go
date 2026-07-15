@@ -9,19 +9,19 @@ import (
 )
 
 type Post struct {
-	ID       int
-	Title    string
-	Content  string
-	PostedAt time.Time
-	Tags     pq.StringArray
+	ID       int            `json:"id"`
+	Title    string         `json:"title"`
+	Content  string         `json:"content"`
+	PostedAt time.Time      `json:"postedAt"`
+	Tags     pq.StringArray `json:"tags"`
 }
 
 type Comment struct {
-	ID          int
-	PostID      int
-	Content     string
-	Author      string
-	CommentedAt time.Time
+	ID          int       `json:"id"`
+	PostID      int       `json:"postId"`
+	Content     string    `json:"content"`
+	Author      string    `json:"author"`
+	CommentedAt time.Time `json:"commentedAt"`
 }
 
 func (db *DB) InsertPost(title, content string, tags []string) (int, error) {
