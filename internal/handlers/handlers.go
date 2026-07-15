@@ -8,9 +8,14 @@ import (
 	"github.com/Alvesafk/blog-2/internal/db"
 )
 
-type Server struct {
+type Connection struct {
 	db *db.DB
 }
+
+func NewConnection(db *db.DB) *Connection {
+	return &Connection{db: db}
+}
+
 
 type Response struct {
 	Message string `json:"message"`
@@ -24,11 +29,7 @@ func (r Response) Write(w http.ResponseWriter) {
 	json.NewEncoder(w).Encode(r)
 }
 
-func NewServer(db *db.DB) *Server {
-	return &Server{db: db}
-}
-
-func (s *Server) GetPosts(w http.ResponseWriter, r *http.Request) {
+func (s *Connection) GetPosts(w http.ResponseWriter, r *http.Request) {
 	posts, err := s.db.ListPosts()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -42,7 +43,7 @@ func (s *Server) GetPosts(w http.ResponseWriter, r *http.Request) {
 	}.Write(w)
 }
 
-func (s *Server) GetPost(w http.ResponseWriter, r *http.Request) {
+func (s *Connection) GetPost(w http.ResponseWriter, r *http.Request) {
 	idStr := r.PathValue("id")
 
 	id, err := strconv.Atoi(idStr)
@@ -64,7 +65,7 @@ func (s *Server) GetPost(w http.ResponseWriter, r *http.Request) {
 	}.Write(w)
 }
 
-func (s *Server) GetComments(w http.ResponseWriter, r *http.Request) {
+func (s *Connection) GetComments(w http.ResponseWriter, r *http.Request) {
 	idStr := r.PathValue("id")
 
 	id, err := strconv.Atoi(idStr)
@@ -86,7 +87,7 @@ func (s *Server) GetComments(w http.ResponseWriter, r *http.Request) {
 	}.Write(w)
 }
 
-func (s *Server) HealthCheck(w http.ResponseWriter, r *http.Request) {
+func (s *Connection) HealthCheck(w http.ResponseWriter, r *http.Request) {
 	Response{
 		Message: "Success",
 		Status:  "healthy",
