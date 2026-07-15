@@ -16,6 +16,10 @@ func New(connString string) (*DB, error) {
 		return nil, err
 	}
 
+	if err := conn.Ping(); err != nil {
+		return nil, err
+	}
+
 	db := &DB{conn}
 	return db, db.migrate()
 }
