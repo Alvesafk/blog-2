@@ -76,6 +76,14 @@ func (s *Connection) GetLatestPost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if len(posts) < 1 {
+		Response{
+			Message: "There is no post",
+			Status: "Failed",
+		}.Write(w, http.StatusNotFound)
+		return
+	}
+
 	latestPost := posts[len(posts)-1]
 	latestPost.Content = mdToHtml(latestPost.Content)
 
