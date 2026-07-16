@@ -43,7 +43,7 @@ func (s *Connection) GetPosts(w http.ResponseWriter, r *http.Request) {
 	if len(posts) < 1 {
 		Response{
 			Message: "There is no post",
-			Status: "Failed",
+			Status:  "Failed",
 		}.Write(w, http.StatusNotFound)
 		return
 	}
@@ -62,7 +62,7 @@ func (s *Connection) GetPost(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		Response{
 			Message: "Invalid id",
-			Status: "Failed",
+			Status:  "Failed",
 		}.Write(w, http.StatusBadRequest)
 		return
 	}
@@ -71,7 +71,7 @@ func (s *Connection) GetPost(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		Response{
 			Message: "Post does not exist",
-			Status: "Failed",
+			Status:  "Failed",
 		}.Write(w, http.StatusNotFound)
 		return
 	}
@@ -95,7 +95,7 @@ func (s *Connection) GetLatestPost(w http.ResponseWriter, r *http.Request) {
 	if len(posts) < 1 {
 		Response{
 			Message: "There is no post",
-			Status: "Failed",
+			Status:  "Failed",
 		}.Write(w, http.StatusNotFound)
 		return
 	}
