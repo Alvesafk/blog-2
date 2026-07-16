@@ -35,10 +35,10 @@ func main() {
 	con := handlers.NewConnection(database)
 
 	mux := http.NewServeMux()
-	mux.HandleFunc("GET /post", con.GetPosts)
-	mux.HandleFunc("GET /post/{id}", con.GetPost)
-	mux.HandleFunc("GET /post/latest", con.GetLatestPost)
-	mux.HandleFunc("GET /comment/{id}", con.GetComments)
+	mux.HandleFunc("GET /api/post", con.GetPosts)
+	mux.HandleFunc("GET /api/post/{id}", con.GetPost)
+	mux.HandleFunc("GET /api/post/latest", con.GetLatestPost)
+	mux.HandleFunc("GET /api/comment/{id}", con.GetComments)
 
 	mux.HandleFunc("GET /healthz", con.HealthCheck)
 
