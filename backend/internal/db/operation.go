@@ -13,6 +13,7 @@ type Post struct {
 	ID        int            `json:"id"`
 	Title     string         `json:"title"`
 	SlugTitle string         `json:"slug_title"`
+	Preview   string         `json:"preview"`
 	Content   string         `json:"content"`
 	PostedAt  time.Time      `json:"postedAt"`
 	Tags      pq.StringArray `json:"tags"`
@@ -26,18 +27,18 @@ type Comment struct {
 	CommentedAt time.Time `json:"commentedAt"`
 }
 
-func (db *DB) InsertPost(title, content string, tags []string) (int, error) {
+func (db *DB) InsertPost(title, preview, content string, tags []string) (int, error) {
 	var id int
 	err := db.conn.QueryRow(
-		`INSERT INTO posts (title, slug_title, content, tags) VALUES ($1, $2, $3, $4) RETURNING id`,
-		title, slug.Make(title),content, pq.Array(tags),
+		`INSERT INTO posts (title, slug_title, preview, content, tags) VALUES ($1, $2, $3, $4, $5) RETURNING id`,
+		title, slug.Make(title), preview, content, pq.Array(tags),
 	).Scan(&id)
 
 	return id, err
 }
 
 func (db *DB) ListPosts() ([]Post, error) {
-	rows, err := db.conn.Query(`SELECT id, title, content, posted_at, tags FROM posts`)
+	rows, err := db.conn.Query(`SELECT id, title, slug_title, preview, content, posted_at, tags FROM posts`)
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +47,7 @@ func (db *DB) ListPosts() ([]Post, error) {
 	var posts []Post
 	for rows.Next() {
 		var p Post
-		if err := rows.Scan(&p.ID, &p.Title, &p.Content, &p.PostedAt, &p.Tags); err != nil {
+		if err := rows.Scan(&p.ID, &p.Title, &p.SlugTitle, &p.Preview, &p.Content, &p.PostedAt, &p.Tags); err != nil {
 			return nil, err
 		}
 		posts = append(posts, p)
@@ -58,9 +59,9 @@ func (db *DB) ListPosts() ([]Post, error) {
 func (db *DB) GetPostByID(id int) (*Post, error) {
 	var p Post
 	err := db.conn.QueryRow(
-		`SELECT id, title, content, posted_at, tags FROM posts WHERE id = $1`,
+		`SELECT id, title, slug_title, preview, content, posted_at, tags FROM posts WHERE id = $1`,
 		id,
-	).Scan(&p.ID, &p.Title, &p.Content, &p.PostedAt, &p.Tags)
+	).Scan(&p.ID, &p.Title, &p.SlugTitle, &p.Preview, &p.Content, &p.PostedAt, &p.Tags)
 
 	if err == sql.ErrNoRows {
 		return nil, fmt.Errorf("post %d not found", id)
@@ -74,8 +75,8 @@ func (db *DB) GetPostByID(id int) (*Post, error) {
 
 func (db *DB) UpdatePost(id int, new_post Post) error {
 	_, err := db.conn.Exec(
-		`UPDATE posts SET title = $1, content = $2, tags = $3 WHERE id = $4`,
-		new_post.Title, new_post.Content, pq.Array(new_post.Tags), id,
+		`UPDATE posts SET title = $1, slug_title = $2, preview = $3, content = $4, tags = $5 WHERE id = $6`,
+		new_post.Title, slug.Make(new_post.Title), new_post.Preview, new_post.Content, pq.Array(new_post.Tags), id,
 	)
 
 	return err

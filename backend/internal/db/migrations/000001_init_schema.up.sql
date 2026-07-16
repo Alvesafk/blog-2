@@ -1,0 +1,17 @@
+CREATE TABLE IF NOT EXISTS posts (
+	id SERIAL PRIMARY KEY,
+	title TEXT NOT NULL,
+	slug_title TEXT NOT NULL,
+	preview TEXT NOT NULL,
+	content TEXT NOT NULL,
+	posted_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+	tags TEXT[]
+);
+
+CREATE TABLE IF NOT EXISTS comments (
+	id SERIAL PRIMARY KEY,
+	post_id INTEGER NOT NULL REFERENCES posts(id) ON DELETE CASCADE,
+	content TEXT NOT NULL,
+	author TEXT NOT NULL,
+	commented_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
