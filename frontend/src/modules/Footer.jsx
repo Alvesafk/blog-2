@@ -3,7 +3,7 @@ export default function Footer() {
 		<footer>
 			<p>
 				<small>beep... beep...</small>
-				<a href="https://github.com/Alvesafk">alvesafk</a> @ 2026
+				<a href="https://github.com/Alvesafk" target="_blank">alvesafk</a> @ 2026
 			</p>
 		</footer>
 	);
