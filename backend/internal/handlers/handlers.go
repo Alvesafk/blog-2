@@ -40,6 +40,14 @@ func (s *Connection) GetPosts(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if len(posts) < 1 {
+		Response{
+			Message: "There is no post",
+			Status:  "Failed",
+		}.Write(w, http.StatusNotFound)
+		return
+	}
+
 	Response{
 		Message: "Success",
 		Status:  "ok",
@@ -79,7 +87,7 @@ func (s *Connection) GetLatestPost(w http.ResponseWriter, r *http.Request) {
 	if len(posts) < 1 {
 		Response{
 			Message: "There is no post",
-			Status: "Failed",
+			Status:  "Failed",
 		}.Write(w, http.StatusNotFound)
 		return
 	}
@@ -120,7 +128,6 @@ func (s *Connection) HealthCheck(w http.ResponseWriter, r *http.Request) {
 	Response{
 		Message: "Success",
 		Status:  "healthy",
-		Content: "",
 	}.Write(w, http.StatusOK)
 }
 

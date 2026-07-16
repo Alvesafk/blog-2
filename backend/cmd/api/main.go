@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -53,6 +54,7 @@ func main() {
 	}
 
 	go func() {
+		fmt.Println("Listening on port :8080")
 		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 			log.Fatalf("error in booting the server: %s", err)
 		}
