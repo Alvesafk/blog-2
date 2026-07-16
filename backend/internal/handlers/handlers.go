@@ -25,9 +25,9 @@ type Response struct {
 	Content any    `json:"content"`
 }
 
-func (r Response) Write(w http.ResponseWriter) {
+func (r Response) Write(w http.ResponseWriter, h int) {
 	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
+	w.WriteHeader(h)
 	enc := json.NewEncoder(w)
 	enc.SetEscapeHTML(false)
 	enc.Encode(r)
@@ -44,7 +44,7 @@ func (s *Connection) GetPosts(w http.ResponseWriter, r *http.Request) {
 		Message: "Success",
 		Status:  "ok",
 		Content: posts,
-	}.Write(w)
+	}.Write(w, http.StatusOK)
 }
 
 func (s *Connection) GetPost(w http.ResponseWriter, r *http.Request) {
@@ -66,7 +66,7 @@ func (s *Connection) GetPost(w http.ResponseWriter, r *http.Request) {
 		Message: "Success",
 		Status:  "ok",
 		Content: post,
-	}.Write(w)
+	}.Write(w, http.StatusOK)
 }
 
 func (s *Connection) GetLatestPost(w http.ResponseWriter, r *http.Request) {
@@ -83,7 +83,7 @@ func (s *Connection) GetLatestPost(w http.ResponseWriter, r *http.Request) {
 		Message: "Success",
 		Status:  "ok",
 		Content: latestPost,
-	}.Write(w)
+	}.Write(w, http.StatusOK)
 }
 
 func (s *Connection) GetComments(w http.ResponseWriter, r *http.Request) {
@@ -105,7 +105,7 @@ func (s *Connection) GetComments(w http.ResponseWriter, r *http.Request) {
 		Message: "Success",
 		Status:  "ok",
 		Content: comments,
-	}.Write(w)
+	}.Write(w, http.StatusOK)
 }
 
 func (s *Connection) HealthCheck(w http.ResponseWriter, r *http.Request) {
@@ -113,7 +113,7 @@ func (s *Connection) HealthCheck(w http.ResponseWriter, r *http.Request) {
 		Message: "Success",
 		Status:  "healthy",
 		Content: "",
-	}.Write(w)
+	}.Write(w, http.StatusOK)
 }
 
 func mdToHtml(md string) string {
