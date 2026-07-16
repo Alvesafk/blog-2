@@ -19,7 +19,6 @@ func NewConnection(db *db.DB) *Connection {
 	return &Connection{db: db}
 }
 
-
 type Response struct {
 	Message string `json:"message"`
 	Status  string `json:"status"`
@@ -37,7 +36,7 @@ func (r Response) Write(w http.ResponseWriter) {
 func (s *Connection) GetPosts(w http.ResponseWriter, r *http.Request) {
 	posts, err := s.db.ListPosts()
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		http.Error(w, "could not get posts", http.StatusInternalServerError)
 		return
 	}
 
@@ -59,7 +58,7 @@ func (s *Connection) GetPost(w http.ResponseWriter, r *http.Request) {
 
 	post, err := s.db.GetPostByID(id)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusNotFound)
+		http.Error(w, "post does not exist", http.StatusNotFound)
 		return
 	}
 
@@ -73,16 +72,16 @@ func (s *Connection) GetPost(w http.ResponseWriter, r *http.Request) {
 func (s *Connection) GetLatestPost(w http.ResponseWriter, r *http.Request) {
 	posts, err := s.db.ListPosts()
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		http.Error(w, "could not get posts", http.StatusInternalServerError)
 		return
 	}
 
-	latestPost := posts[len(posts) - 1]
+	latestPost := posts[len(posts)-1]
 	latestPost.Content = mdToHtml(latestPost.Content)
 
 	Response{
 		Message: "Success",
-		Status: "ok",
+		Status:  "ok",
 		Content: latestPost,
 	}.Write(w)
 }
@@ -98,13 +97,13 @@ func (s *Connection) GetComments(w http.ResponseWriter, r *http.Request) {
 
 	comments, err := s.db.ListCommentsByPost(id)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusNotFound)
+		http.Error(w, "could not get comments", http.StatusNotFound)
 		return
 	}
 
 	Response{
 		Message: "Success",
-		Status: "ok",
+		Status:  "ok",
 		Content: comments,
 	}.Write(w)
 }
