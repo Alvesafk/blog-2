@@ -6,10 +6,10 @@ export default function Header() {
 			<h1>Alves's Blog</h1>
 
 			<nav>
-				<Link to="/">Home</Link>
-				<Link to="/posts">Posts</Link>
+				<Link to="/" prefetch="intent">Home</Link>
+				<Link to="/posts" prefetch="intent">Posts</Link>
 				<Link to="/resources">Resources</Link>
-				<Link to="/guestbook">Guestbook</Link>
+				<Link to="/guestbook" prefetch="intent">Guestbook</Link>
 			</nav>
 		</header>
 	);
