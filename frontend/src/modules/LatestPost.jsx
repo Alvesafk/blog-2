@@ -1,26 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
+import Tags from "./Tags.jsx";
 
 export default function LatestPost() {
-	function printTags(tags) {
-		let result = "";
-		tags.forEach(function(element, index, array) {
-			if (index == array.length - 1) {
-				result += element;
-			} else {
-				result += element + ", ";
-			}
-		});
-
-		return (
-			<span>
-				<small>
-					{result}
-				</small>
-			</span>
-		);
-	}
-
 	const [latestPost, setLatestPost] = useState(null);
 	const [loading, setLoading] = useState(true);
 
@@ -52,7 +34,7 @@ export default function LatestPost() {
 					<h3>{latestPost.content.title}</h3>
 					<p>{latestPost.content.preview}</p>
 					<Link to={"/posts/" + latestPost.content.slug_title} state={{post_id: latestPost.content.id}}>Read it!</Link> <br/>
-					{printTags(latestPost.content.tags)}
+					<Tags tags={latestPost.content.tags}/>
 				</div>
 			) : (
 				<p>No post found!</p>
