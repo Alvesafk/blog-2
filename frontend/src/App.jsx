@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router";
 import MainLayout from "./layouts/MainLayout";
 import Home from "./pages/Home";
-import About from "./pages/About";
 import Resources from "./pages/Resources";
 import Guestbook from "./pages/Guestbook";
 import Posts from "./pages/Posts";
@@ -15,7 +14,6 @@ function App() {
 				<Routes>
 					<Route element={<MainLayout />}>
 						<Route path="/" element={<Home />} />
-						<Route path="/about" element={<About />} />
 						<Route path="/resources" element={<Resources />} />
 						<Route path="/guestbook" element={<Guestbook />} />
 						<Route path="/posts" element={<Posts />} />
