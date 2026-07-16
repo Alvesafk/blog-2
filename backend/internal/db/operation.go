@@ -38,7 +38,7 @@ func (db *DB) InsertPost(title, preview, content string, tags []string) (int, er
 }
 
 func (db *DB) ListPosts() ([]Post, error) {
-	rows, err := db.conn.Query(`SELECT id, title, slug_title, preview, content, posted_at, tags FROM posts`)
+	rows, err := db.conn.Query(`SELECT id, title, slug_title, preview, posted_at, tags FROM posts`)
 	if err != nil {
 		return nil, err
 	}
@@ -47,7 +47,7 @@ func (db *DB) ListPosts() ([]Post, error) {
 	var posts []Post
 	for rows.Next() {
 		var p Post
-		if err := rows.Scan(&p.ID, &p.Title, &p.SlugTitle, &p.Preview, &p.Content, &p.PostedAt, &p.Tags); err != nil {
+		if err := rows.Scan(&p.ID, &p.Title, &p.SlugTitle, &p.Preview, &p.PostedAt, &p.Tags); err != nil {
 			return nil, err
 		}
 		posts = append(posts, p)

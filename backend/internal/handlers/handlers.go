@@ -43,7 +43,7 @@ func (s *Connection) GetPosts(w http.ResponseWriter, r *http.Request) {
 	if len(posts) < 1 {
 		Response{
 			Message: "There is no post",
-			Status:  "Failed",
+			Status: "Failed",
 		}.Write(w, http.StatusNotFound)
 		return
 	}
@@ -60,15 +60,23 @@ func (s *Connection) GetPost(w http.ResponseWriter, r *http.Request) {
 
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
-		http.Error(w, "invalid id", http.StatusBadRequest)
+		Response{
+			Message: "Invalid id",
+			Status: "Failed",
+		}.Write(w, http.StatusBadRequest)
 		return
 	}
 
 	post, err := s.db.GetPostByID(id)
 	if err != nil {
-		http.Error(w, "post does not exist", http.StatusNotFound)
+		Response{
+			Message: "Post does not exist",
+			Status: "Failed",
+		}.Write(w, http.StatusNotFound)
 		return
 	}
+
+	post.Content = mdToHtml(post.Content)
 
 	Response{
 		Message: "Success",
@@ -87,13 +95,12 @@ func (s *Connection) GetLatestPost(w http.ResponseWriter, r *http.Request) {
 	if len(posts) < 1 {
 		Response{
 			Message: "There is no post",
-			Status:  "Failed",
+			Status: "Failed",
 		}.Write(w, http.StatusNotFound)
 		return
 	}
 
 	latestPost := posts[len(posts)-1]
-	latestPost.Content = mdToHtml(latestPost.Content)
 
 	Response{
 		Message: "Success",
