@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"sort"
 	"strconv"
 
 	"github.com/Alvesafk/blog-2/internal/db"
@@ -47,6 +48,10 @@ func (s *Connection) GetPosts(w http.ResponseWriter, r *http.Request) {
 		}.Write(w, http.StatusNotFound)
 		return
 	}
+
+	sort.Slice(posts, func(i, j int) bool {
+		return posts[i].ID > posts[j].ID
+	})
 
 	Response{
 		Message: "Success",
