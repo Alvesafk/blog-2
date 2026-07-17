@@ -174,6 +174,10 @@ func (s *Connection) GetComments(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	sort.Slice(comments, func(i, j int) bool {
+		return comments[i].CommentedAt.Unix() > comments[j].CommentedAt.Unix()
+	})
+
 	Response{
 		Message: "Success",
 		Status:  "ok",
