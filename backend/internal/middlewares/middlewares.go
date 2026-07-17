@@ -11,6 +11,16 @@ import (
 	"golang.org/x/time/rate"
 )
 
+type Middleware func(http.Handler) http.Handler
+
+func Chain(h http.Handler, middlewares ...Middleware) http.Handler {
+	for i := len(middlewares) - 1; i >= 0; i-- {
+		h = middlewares[i](h)
+	}
+
+	return h
+}
+
 func SecurityHeadersMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Prevent clickjacking
@@ -113,6 +123,19 @@ func RateLimiterMiddleware(next http.Handler) http.Handler {
 		}
 		mu.Unlock()
 
+		next.ServeHTTP(w, r)
+	})
+}
+
+func CORSMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
+		if r.Method == http.MethodOptions {
+			w.WriteHeader(http.StatusNoContent)
+			return
+		}
 		next.ServeHTTP(w, r)
 	})
 }

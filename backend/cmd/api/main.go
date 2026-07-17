@@ -42,7 +42,13 @@ func main() {
 
 	mux.HandleFunc("GET /healthz", con.HealthCheck)
 
-	middlewareMux := mw.RateLimiterMiddleware(mw.SecurityHeadersMiddleware(mw.LoggingMiddleware(mw.RecoverMiddleware(mux))))
+	middlewareMux := mw.Chain(mux,
+		mw.RecoverMiddleware,
+		mw.LoggingMiddleware,
+		mw.CORSMiddleware,
+		mw.SecurityHeadersMiddleware,
+		mw.RateLimiterMiddleware,
+	)
 
 	srv := &http.Server{
 		Addr:              ":8080",
