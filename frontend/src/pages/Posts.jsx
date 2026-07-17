@@ -32,7 +32,7 @@ export default function Posts() {
 			) : posts ? (
 				<div className="post-list">
 					{posts.content.map(post =>
-						<PostCard post={post} />
+						<PostCard key={post.id} post={post} />
 					)}
 				</div>
 			) : (

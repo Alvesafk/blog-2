@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import ReactMarkdown from 'react-markdown';
+import CommentSection from '../modules/CommentSection';
 
 export default function Post() {
 	const [post, setPost] = useState(null);
@@ -31,9 +32,12 @@ export default function Post() {
 			{loading ? (
 				<p>Loading...</p>
 			) : post ? (
-				<article>
-					<ReactMarkdown>{post.content.content}</ReactMarkdown>
-				</article>
+				<>
+					<article>
+						<ReactMarkdown>{post.content.content}</ReactMarkdown>
+					</article>
+					<CommentSection id={post.content.id} />
+				</>
 			) : (
 				<p>No post found!</p>
 			)}
