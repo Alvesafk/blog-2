@@ -73,6 +73,22 @@ func (db *DB) GetPostByID(id int) (*Post, error) {
 	return &p, nil
 }
 
+func (db *DB) GetLatestPost() (*Post, error) {
+	var p Post
+	err := db.conn.QueryRow(
+		`SELECT id, title, slug_title, preview, content, posted_at, tags FROM posts ORDER BY id DESC LIMIT 1`,
+	).Scan(&p.ID, &p.Title, &p.SlugTitle, &p.Preview, &p.Content, &p.PostedAt, &p.Tags)
+
+	if err == sql.ErrNoRows {
+		return nil, fmt.Errorf("latest post was not found")
+	}
+	if err != nil {
+		return nil, err
+	}
+
+	return &p, nil
+}
+
 func (db *DB) UpdatePost(id int, new_post Post) error {
 	_, err := db.conn.Exec(
 		`UPDATE posts SET title = $1, slug_title = $2, preview = $3, content = $4, tags = $5 WHERE id = $6`,

@@ -91,26 +91,28 @@ func (s *Connection) GetPost(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Connection) GetLatestPost(w http.ResponseWriter, r *http.Request) {
-	posts, err := s.db.ListPosts()
+	post, err := s.db.GetLatestPost()
 	if err != nil {
-		http.Error(w, "could not get posts", http.StatusInternalServerError)
-		return
-	}
+		if err.Error() == "latest post was not found" {
+			Response{
+				Message: "There is no post",
+				Status:  "Failed",
+			}.Write(w, http.StatusNotFound)
+			return
 
-	if len(posts) < 1 {
+		}
+
 		Response{
-			Message: "There is no post",
+			Message: "Could not get latest post",
 			Status:  "Failed",
-		}.Write(w, http.StatusNotFound)
+		}.Write(w, http.StatusInternalServerError)
 		return
 	}
-
-	latestPost := posts[len(posts)-1]
 
 	Response{
 		Message: "Success",
 		Status:  "ok",
-		Content: latestPost,
+		Content: post,
 	}.Write(w, http.StatusOK)
 }
 
