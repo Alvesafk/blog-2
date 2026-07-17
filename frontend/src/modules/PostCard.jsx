@@ -12,7 +12,7 @@ export default function PostCard({ post }) {
 			</div>
 			<div className="post-card-content">
 				<p>{post.preview}</p>
-				<Link to={"/posts/" + post.slug_title} state={{ post_id: post.id }}>Read it!</Link> <br />
+				<Link to={"/posts/" + post.slug_title} state={{ postId: post.id }}>Read it!</Link> <br />
 				<Tags tags={post.tags} />
 			</div>
 		</div>

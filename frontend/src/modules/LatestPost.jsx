@@ -33,7 +33,7 @@ export default function LatestPost() {
 				<div className="latestPost">
 					<h3>{latestPost.content.title}</h3>
 					<p>{latestPost.content.preview}</p>
-					<Link to={"/posts/" + latestPost.content.slug_title} state={{post_id: latestPost.content.id}}>Read it!</Link> <br/>
+					<Link to={"/posts/" + latestPost.content.slug_title} state={{postId: latestPost.content.id}}>Read it!</Link> <br/>
 					<Tags tags={latestPost.content.tags}/>
 				</div>
 			) : (
