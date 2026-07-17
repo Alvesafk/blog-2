@@ -102,7 +102,7 @@ func (s *Connection) GetPostBySlug(w http.ResponseWriter, r *http.Request) {
 
 	Response{
 		Message: "Success",
-		Status: "ok",
+		Status:  "ok",
 		Content: post,
 	}.Write(w, http.StatusOK)
 }
@@ -178,6 +178,42 @@ func (s *Connection) GetComments(w http.ResponseWriter, r *http.Request) {
 		Message: "Success",
 		Status:  "ok",
 		Content: comments,
+	}.Write(w, http.StatusOK)
+}
+
+func (s *Connection) PostComment(w http.ResponseWriter, r *http.Request) {
+	var c struct {
+		Author  string `json:"author"`
+		Content string `json:"content"`
+	}
+
+	decoder := json.NewDecoder(r.Body)
+	if err := decoder.Decode(&c); err != nil {
+		Response{
+			Message: "invalid json",
+			Status: "Failed",
+		}.Write(w, http.StatusBadRequest)
+	}
+	defer r.Body.Close()
+
+	idStr := r.PathValue("id")
+
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		http.Error(w, "invalid id", http.StatusBadRequest)
+		return
+	}
+
+	if _, err := s.db.InsertComment(id, c.Content, c.Author); err != nil {
+		Response{
+			Message: "error on inserting comment",
+			Status: "Failed",
+		}.Write(w, http.StatusInternalServerError)
+	}
+
+	Response{
+		Message: "commented inserted",
+		Status: "ok",
 	}.Write(w, http.StatusOK)
 }
 

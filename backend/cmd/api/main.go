@@ -38,8 +38,10 @@ func main() {
 	mux.HandleFunc("GET /api/post", con.GetPosts)
 	mux.HandleFunc("GET /api/post/{slug}", con.GetPostBySlug)
 	mux.HandleFunc("GET /api/post/latest", con.GetLatestPost)
-	mux.HandleFunc("GET /api/comment/{id}", con.GetComments)
+	mux.HandleFunc("GET /api/post/comments/{id}", con.GetComments)
 	mux.HandleFunc("GET /api/currently", con.GetCurrently)
+
+	mux.HandleFunc("POST /api/post/{id}", con.PostComment)
 
 	mux.HandleFunc("GET /healthz", con.HealthCheck)
 
