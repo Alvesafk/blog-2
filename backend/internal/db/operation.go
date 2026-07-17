@@ -28,8 +28,8 @@ type Comment struct {
 }
 
 type Currently struct {
-	ID int `json:"id"`
-	Content string `json:"content"`
+	ID            int       `json:"id"`
+	Content       string    `json:"content"`
 	LastUpdatedAt time.Time `json:"LastUpdatedAt"`
 }
 
@@ -87,6 +87,24 @@ func (db *DB) GetLatestPost() (*Post, error) {
 
 	if err == sql.ErrNoRows {
 		return nil, fmt.Errorf("latest post was not found")
+	}
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &p, nil
+}
+
+func (db *DB) GetPostBySlug(slug string) (*Post, error) {
+	var p Post
+	err := db.conn.QueryRow(
+		`SELECT id, title, slug_title, preview, content, posted_at, tags FROM posts WHERE slug_title = $1`,
+		slug,
+	).Scan(&p.ID, &p.Title, &p.SlugTitle, &p.Preview, &p.Content, &p.PostedAt, &p.Tags)
+
+	if err == sql.ErrNoRows {
+		return nil, fmt.Errorf("post %s not found", slug)
 	}
 	if err != nil {
 		return nil, err
@@ -177,7 +195,6 @@ func (db *DB) InsertCurrently(content string) (int, error) {
 	err := db.conn.QueryRow(
 		`INSERT INTO currently (content) VALUES ($1) RETURNING id`,
 		content,
-
 	).Scan(&id)
 
 	return id, err

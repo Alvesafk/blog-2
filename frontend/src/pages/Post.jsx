@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router';
+import { useParams } from 'react-router';
+import ReactMarkdown from 'react-markdown';
 
 export default function Post() {
 	const [post, setPost] = useState(null);
 	const [loading, setLoading] = useState(true);
 
-	const location = useLocation()
-	const { postId } = location.state || {};
+	const { name } = useParams()
 
 	useEffect(() => {
-		fetch("/api/post/" + postId)
+		fetch("/api/post/" + name)
 			.then(response => {
 				if (response.ok) {
 					return response.json();
@@ -32,7 +32,7 @@ export default function Post() {
 				<p>Loading...</p>
 			) : post ? (
 				<article>
-					<div dangerouslySetInnerHTML={{__html: post.content.content}}/>
+					<ReactMarkdown>{post.content.content}</ReactMarkdown>
 				</article>
 			) : (
 				<p>No post found!</p>

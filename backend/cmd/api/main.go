@@ -36,7 +36,7 @@ func main() {
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /api/post", con.GetPosts)
-	mux.HandleFunc("GET /api/post/{id}", con.GetPost)
+	mux.HandleFunc("GET /api/post/{slug}", con.GetPostBySlug)
 	mux.HandleFunc("GET /api/post/latest", con.GetLatestPost)
 	mux.HandleFunc("GET /api/comment/{id}", con.GetComments)
 	mux.HandleFunc("GET /api/currently", con.GetCurrently)

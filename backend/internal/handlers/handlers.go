@@ -81,11 +81,28 @@ func (s *Connection) GetPost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	post.Content = mdToHtml(post.Content)
-
 	Response{
 		Message: "Success",
 		Status:  "ok",
+		Content: post,
+	}.Write(w, http.StatusOK)
+}
+
+func (s *Connection) GetPostBySlug(w http.ResponseWriter, r *http.Request) {
+	slugStr := r.PathValue("slug")
+
+	post, err := s.db.GetPostBySlug(slugStr)
+	if err != nil {
+		Response{
+			Message: "Post does not exist",
+			Status:  "Failed",
+		}.Write(w, http.StatusNotFound)
+		return
+	}
+
+	Response{
+		Message: "Success",
+		Status: "ok",
 		Content: post,
 	}.Write(w, http.StatusOK)
 }
