@@ -116,6 +116,32 @@ func (s *Connection) GetLatestPost(w http.ResponseWriter, r *http.Request) {
 	}.Write(w, http.StatusOK)
 }
 
+func (s *Connection) GetCurrently(w http.ResponseWriter, r *http.Request) {
+	currently, err := s.db.GetCurrently()
+	if err != nil {
+		if err.Error() == "latest currently update was not found" {
+			Response{
+				Message: "There is no post",
+				Status:  "Failed",
+			}.Write(w, http.StatusNotFound)
+			return
+
+		}
+
+		Response{
+			Message: "Could not get latest currently update",
+			Status:  "Failed",
+		}.Write(w, http.StatusInternalServerError)
+		return
+	}
+
+	Response{
+		Message: "Success",
+		Status:  "ok",
+		Content: currently,
+	}.Write(w, http.StatusOK)
+}
+
 func (s *Connection) GetComments(w http.ResponseWriter, r *http.Request) {
 	idStr := r.PathValue("id")
 

@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS currently (
+	id SERIAL PRIMARY KEY,
+	content TEXT NOT NULL,
+	last_updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);

@@ -12,7 +12,7 @@ import (
 type Post struct {
 	ID        int            `json:"id"`
 	Title     string         `json:"title"`
-	SlugTitle string         `json:"slug_title"`
+	SlugTitle string         `json:"slugTitle"`
 	Preview   string         `json:"preview"`
 	Content   string         `json:"content"`
 	PostedAt  time.Time      `json:"postedAt"`
@@ -25,6 +25,12 @@ type Comment struct {
 	Content     string    `json:"content"`
 	Author      string    `json:"author"`
 	CommentedAt time.Time `json:"commentedAt"`
+}
+
+type Currently struct {
+	ID int `json:"id"`
+	Content string `json:"content"`
+	LastUpdatedAt time.Time `json:"LastUpdatedAt"`
 }
 
 func (db *DB) InsertPost(title, preview, content string, tags []string) (int, error) {
@@ -164,4 +170,31 @@ func (db *DB) UpdateComment(id int, new_comment Comment) error {
 func (db *DB) DeleteComment(id int) error {
 	_, err := db.conn.Exec(`DELETE FROM comments WHERE id = $1`, id)
 	return err
+}
+
+func (db *DB) InsertCurrently(content string) (int, error) {
+	var id int
+	err := db.conn.QueryRow(
+		`INSERT INTO currently (content) VALUES ($1) RETURNING id`,
+		content,
+
+	).Scan(&id)
+
+	return id, err
+}
+
+func (db *DB) GetCurrently() (*Currently, error) {
+	var c Currently
+	err := db.conn.QueryRow(
+		`SELECT id,  content, last_updated_at FROM currently ORDER BY id DESC LIMIT 1`,
+	).Scan(&c.ID, &c.Content, &c.LastUpdatedAt)
+
+	if err == sql.ErrNoRows {
+		return nil, fmt.Errorf("latest currently update was not found")
+	}
+	if err != nil {
+		return nil, err
+	}
+
+	return &c, nil
 }
