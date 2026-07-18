@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export default function TextAreaForm({ url, onCommentPosted }) {
+export default function TextAreaForm({ url, onPost, inputPlaceholder, submitPlaceholder }) {
 	const [formData, setFormData] = useState({
 		author: "",
 		content: "",
@@ -31,7 +31,7 @@ export default function TextAreaForm({ url, onCommentPosted }) {
 				throw new Error(`Error on post: ${response.status}`)
 			}
 
-			onCommentPosted()
+			onPost()
 		} catch (err) {
 			setError(err.message)
 		} finally {
@@ -55,13 +55,13 @@ export default function TextAreaForm({ url, onCommentPosted }) {
 			<textarea
 				rows="3"
 				cols="100"
-				placeholder='Write a comment!'
+				placeholder={inputPlaceholder}
 				name='content'
 				value={formData.content}
 				onChange={handleChange}
 			></textarea>
 			<button type="submit" disabled={loading}>
-				{loading ? "Posting..." : "Post your comment!"}
+				{loading ? "Posting..." : submitPlaceholder}
 			</button>
 			{error && <p>{error}</p>}
 		</form>
