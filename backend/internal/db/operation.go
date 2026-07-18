@@ -30,7 +30,7 @@ type Comment struct {
 type Currently struct {
 	ID            int       `json:"id"`
 	Content       string    `json:"content"`
-	LastUpdatedAt time.Time `json:"LastUpdatedAt"`
+	LastUpdatedAt time.Time `json:"lastUpdatedAt"`
 }
 
 func (db *DB) InsertPost(title, preview, content string, tags []string) (int, error) {
