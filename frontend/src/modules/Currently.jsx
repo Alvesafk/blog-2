@@ -23,19 +23,19 @@ export default function Currently() {
 	}, []);
 
 	return (
-		<div>
-			<h2>Updates</h2>
+		<div className="latestPost">
+			<h2>Currently...</h2>
 			{loading ? (
 				<p>Loading...</p>
 			) : currently ? (
-				<div className="latestPost">
-					<h2>Currently...</h2>
+				<>
 					<p>{currently.content.content}</p>
 					<p><small>Last updated at {new Date(currently.content.lastUpdatedAt).toLocaleString()}!</small></p>
-				</div>
+				</>
 			) : (
-				<p>No post found!</p>
-			)}
-		</div>
+				<p>Doing nothing?</p>
+			)
+			}
+		</div >
 	)
 }

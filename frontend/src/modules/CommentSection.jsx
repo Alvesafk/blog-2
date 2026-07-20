@@ -36,7 +36,7 @@ export default function CommentSection({ id }) {
 			<div id='comment-section'>
 				<TextAreaForm
 					url={"/api/post/" + id}
-					onCommentPosted={fetchComments}
+					onPost={fetchComments}
 					inputPlaceholder={"Write a comment!"}
 					submitPlaceholder={"Post your comment!"}
 				/>
