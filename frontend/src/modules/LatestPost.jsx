@@ -25,20 +25,26 @@ export default function LatestPost() {
 	}, []);
 
 	return (
-		<div>
-			<h2>Updates</h2>
-			{loading ? (
-				<p>Loading...</p>
-			) : latestPost ? (
-				<div className="latestPost">
-					<h3>{latestPost.content.title}</h3>
-					<p>{latestPost.content.preview}</p>
-					<Link to={"/posts/" + latestPost.content.slugTitle} state={{postId: latestPost.content.id}}>Read it!</Link> <br/>
-					<Tags tags={latestPost.content.tags}/>
+		<section className="container column is-three-fifths">
+			<div className="box box-fill-height">
+				<header className="has-b-border">
+					<h2 className="is-size-4">Updates</h2>
+				</header>
+				<div className="mt-2">
+					{loading ? (
+						<p>Loading...</p>
+					) : latestPost ? (
+						<div className="latestPost">
+							<h3>{latestPost.content.title}</h3>
+							<p>{latestPost.content.preview}</p>
+							<Link to={"/posts/" + latestPost.content.slugTitle} state={{ postId: latestPost.content.id }}>Read it!</Link> <br />
+							<Tags tags={latestPost.content.tags} />
+						</div>
+					) : (
+						<p>No post found!</p>
+					)}
 				</div>
-			) : (
-				<p>No post found!</p>
-			)}
-		</div>
+			</div>
+		</section>
 	)
 }
