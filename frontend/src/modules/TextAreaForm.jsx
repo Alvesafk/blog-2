@@ -44,25 +44,41 @@ export default function TextAreaForm({ url, onPost, inputPlaceholder, submitPlac
 	}
 
 	return (
-		<form onSubmit={handleSubmit}>
-			<input
-				type="text"
-				name="author"
-				placeholder='Who are you?'
-				value={formData.author}
-				onChange={handleChange}
-			/>
-			<textarea
-				rows="3"
-				cols="100"
-				placeholder={inputPlaceholder}
-				name='content'
-				value={formData.content}
-				onChange={handleChange}
-			></textarea>
-			<button type="submit" disabled={loading}>
-				{loading ? "Posting..." : submitPlaceholder}
-			</button>
+		<form onSubmit={handleSubmit} className='container is-max-desktop my-2'>
+			<div className='field'>
+				<label className='label'>Author</label>
+				<div className='control'>
+					<input
+						className='input'
+						type="text"
+						name="author"
+						placeholder='Who are you?'
+						value={formData.author}
+						onChange={handleChange}
+					/>
+				</div>
+			</div>
+			<div className='field'>
+				<label className='label'>Comment</label>
+				<div className='control'>
+					<textarea
+						className='textarea'
+						rows="3"
+						cols="100"
+						placeholder={inputPlaceholder}
+						name='content'
+						value={formData.content}
+						onChange={handleChange}
+					></textarea>
+				</div>
+			</div>
+			<div className='field'>
+				<div className='control'>
+					<button className='button is-link' type="submit" disabled={loading}>
+						{loading ? "Posting..." : submitPlaceholder}
+					</button>
+				</div>
+			</div>
 			{error && <p>{error}</p>}
 		</form>
 	)
