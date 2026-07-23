@@ -33,7 +33,7 @@ export default function Post() {
 				<p>Loading...</p>
 			) : post ? (
 				<>
-					<article>
+					<article className='container content is-max-desktop my-2'>
 						<ReactMarkdown>{post.content.content}</ReactMarkdown>
 					</article>
 					<CommentSection id={post.content.id} />

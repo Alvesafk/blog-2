@@ -6,7 +6,7 @@ export default function Header() {
 			<nav className="navbar has-b-border">
 				<div className="navbar-brand">
 					<h1 className="navbar-item title">
-						<Link className="has-text-primary-00" to="/" prefetch="intent">Alves's Blog</Link>
+						<Link className="has-text-black" to="/" prefetch="intent">Alves's Blog</Link>
 					</h1>
 				</div>
 				<div className="navbar-menu">
