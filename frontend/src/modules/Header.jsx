@@ -3,7 +3,7 @@ import { Link } from "react-router";
 export default function Header() {
 	return (
 		<header>
-			<nav className="navbar">
+			<nav className="navbar has-b-border">
 				<div className="navbar-brand">
 					<h1 className="navbar-item title">
 						<Link className="has-text-primary-00" to="/" prefetch="intent">Alves's Blog</Link>

@@ -1,6 +1,6 @@
 export default function Footer() {
 	return (
-		<footer className="footer">
+		<footer className="footer has-t-border">
 			<div className="content has-text-centered">
 				<p>
 					<small>beep... beep...</small>
