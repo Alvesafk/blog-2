@@ -25,20 +25,19 @@ export default function Posts() {
 	}, []);
 
 	return (
-		<>
-			<h2>This is the Posts</h2>
+		<div className="post-list container">
 			{loading ? (
 				<p>Loading...</p>
 			) : posts ? (
-				<div className="post-list">
+				<>
 					{posts.content.map(post =>
 						<PostCard key={post.id} post={post} />
 					)}
-				</div>
+				</>
 			) : (
 				<p>No post found!</p>
 			)}
-		</>
+		</div>
 	);
 }
 
