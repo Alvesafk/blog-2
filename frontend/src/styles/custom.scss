@@ -2,6 +2,25 @@
   $navbar-breakpoint: 0px,
 );
 
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}
+
 .has-border {
   border: 1px solid var(--bulma-border);
 }
