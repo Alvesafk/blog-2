@@ -32,7 +32,12 @@ export default function LatestPost() {
 				</header>
 				<div className="mt-2">
 					{loading ? (
-						<p>Loading...</p>
+						<div class="skeleton-lines">
+							<div></div>
+							<div></div>
+							<div></div>
+							<div></div>
+						</div>
 					) : latestPost ? (
 						<div className="latestPost">
 							<h3>{latestPost.content.title}</h3>
