@@ -1,3 +1,15 @@
 @use "bulma/sass" with (
   $navbar-breakpoint: 0px,
 );
+
+.has-border {
+  border: 1px solid var(--bulma-border);
+}
+
+.has-b-border {
+  border-bottom: 1px solid var(--bulma-border);
+}
+
+.has-t-border {
+  border-top: 1px solid var(--bulma-border);
+}
