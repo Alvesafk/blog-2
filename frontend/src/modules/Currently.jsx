@@ -23,19 +23,25 @@ export default function Currently() {
 	}, []);
 
 	return (
-		<div className="latestPost">
-			<h2>Currently...</h2>
-			{loading ? (
-				<p>Loading...</p>
-			) : currently ? (
-				<>
-					<p>{currently.content.content}</p>
-					<p><small>Last updated at {new Date(currently.content.lastUpdatedAt).toLocaleString()}!</small></p>
-				</>
-			) : (
-				<p>Doing nothing?</p>
-			)
-			}
-		</div >
+		<section className="latestPost column is-two-fifths container ">
+			<div className='box box-fill-height'>
+				<header className='has-b-border'>
+					<h2 className="is-size-5">Currently...</h2>
+				</header>
+				<div className='mt-2'>
+					{loading ? (
+						<p>Loading...</p>
+					) : currently ? (
+						<>
+							<p>{currently.content.content}</p>
+							<p><small className='is-size-7'>Last updated at {new Date(currently.content.lastUpdatedAt).toLocaleString()}!</small></p>
+						</>
+					) : (
+						<p>Doing nothing?</p>
+					)
+					}
+				</div>
+			</div>
+		</section >
 	)
 }
