@@ -4,7 +4,7 @@ export default function Greet() {
 		<section className="container my-2">
 			<div className="box">
 				<header className="has-b-border">
-					<h2 className="is-size-5"><small className="is-size-7">wows...</small> Homepage</h2>
+					<h2 className="is-size-4"><small className="is-size-7">wows...</small> Homepage</h2>
 				</header>
 				<div className="mt-2">
 					<img src="#" alt="INSANE PIC" />

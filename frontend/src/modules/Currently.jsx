@@ -26,7 +26,7 @@ export default function Currently() {
 		<section className="latestPost column is-two-fifths container ">
 			<div className='box box-fill-height'>
 				<header className='has-b-border'>
-					<h2 className="is-size-5">Currently...</h2>
+					<h2 className="is-size-4">Currently...</h2>
 				</header>
 				<div className='mt-2'>
 					{loading ? (

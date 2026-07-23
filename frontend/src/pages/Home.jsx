@@ -15,9 +15,11 @@ export default function Home() {
 					<Social />
 				</div>
 			</div>
-			<div>
-				<LatestPost />
-				<Gif url={"https://alvesafk.com/static/media/tux-linux.gif"} />
+			<div className='container'>
+				<div className='columns'>
+					<LatestPost />
+					<Gif url={"https://alvesafk.com/static/media/tux-linux.gif"} />
+				</div>
 			</div>
 			<About />
 		</>

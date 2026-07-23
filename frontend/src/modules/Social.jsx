@@ -3,7 +3,7 @@ export default function Social() {
 		<section className="container column">
 			<div className="box">
 				<header className="has-b-border">
-					<h2 className="is-size-5">Socials</h2>
+					<h2 className="is-size-4">Socials</h2>
 				</header>
 				<div className="mt-2">
 					<p>You can also find me here!</p>
