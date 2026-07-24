@@ -74,7 +74,7 @@ export default function TextAreaForm({ url, onPost, inputPlaceholder, submitPlac
 			</div>
 			<div className='field'>
 				<div className='control'>
-					<button className={`button is-link ${loading ? 'is-loading' : ''}`} type="submit" disabled={loading}>
+					<button className={`button is-primary ${loading ? 'is-loading' : ''}`} type="submit" disabled={loading}>
 						{loading ? "Posting..." : submitPlaceholder}
 					</button>
 				</div>

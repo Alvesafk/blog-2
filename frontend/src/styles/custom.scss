@@ -3,6 +3,12 @@
   $box-shadow: 0,
 );
 
+:root {
+  --bulma-scheme-h: 0;
+  --bulma-scheme-s: 0%;
+  --bulma-scheme-main-l: 98%;
+}
+
 html,
 body {
   height: 100%;
@@ -36,4 +42,8 @@ main {
 
 .box-fill-height {
   height: 100%;
+}
+
+.has-text-default {
+  color: var(--bulma-text);
 }
