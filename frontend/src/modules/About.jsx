@@ -1,7 +1,7 @@
 export default function About() {
 	return (
 		<section className="container my-2">
-			<div className="box">
+			<div className="box has-border">
 				<header className="has-b-border">
 					<h2 className="is-size-4">About this website</h2>
 				</header>

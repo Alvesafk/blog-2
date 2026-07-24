@@ -32,7 +32,7 @@ export default function CommentSection({ id }) {
 
 	return (
 		<>
-			<hr />
+			<hr className="container is-max-desktop my-4" />
 			<div id='comment-section'>
 				<TextAreaForm
 					url={"/api/post/" + id}
@@ -41,6 +41,8 @@ export default function CommentSection({ id }) {
 					submitPlaceholder={"Post your comment!"}
 				/>
 			</div>
+
+			<hr className='container is-max-desktop my-4'/>
 
 			{loading ? (
 				<p>Loading...</p>

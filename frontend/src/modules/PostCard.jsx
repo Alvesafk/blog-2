@@ -6,7 +6,7 @@ export default function PostCard({ post }) {
 
 	return (
 		<section className='container mt-2'>
-			<div className='box'>
+			<div className='box has-border'>
 				<header className='has-b-border'>
 					<h2 className='is-size-4'>{post.title}</h2>
 					<span><small>{date}</small></span>

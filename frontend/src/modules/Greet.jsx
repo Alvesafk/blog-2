@@ -2,7 +2,7 @@ export default function Greet() {
 	// TODO :: find a insane pic
 	return (
 		<section className="container my-2">
-			<div className="box">
+			<div className="box has-border">
 				<header className="has-b-border">
 					<h2 className="is-size-4"><small className="is-size-7">wows...</small> Homepage</h2>
 				</header>

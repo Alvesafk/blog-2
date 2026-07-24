@@ -26,7 +26,7 @@ export default function LatestPost() {
 
 	return (
 		<section className="container column is-three-fifths">
-			<div className="box box-fill-height">
+			<div className="box box-fill-height has-border">
 				<header className="has-b-border">
 					<h2 className="is-size-4">Updates</h2>
 				</header>

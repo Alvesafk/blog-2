@@ -1,7 +1,7 @@
 export default function Social() {
 	return (
 		<section className="container column">
-			<div className="box">
+			<div className="box has-border">
 				<header className="has-b-border">
 					<h2 className="is-size-4">Socials</h2>
 				</header>
