@@ -16,10 +16,11 @@ import (
 
 type Connection struct {
 	db *db.DB
+	cw *serverstats.ConnectionWatcher
 }
 
-func NewConnection(db *db.DB) *Connection {
-	return &Connection{db: db}
+func NewConnection(db *db.DB, cw *serverstats.ConnectionWatcher) *Connection {
+	return &Connection{db: db, cw: cw}
 }
 
 type Response struct {
@@ -239,7 +240,7 @@ func (s *Connection) GetServerStats(w http.ResponseWriter, r *http.Request) {
 	Response{
 		Message: "Success",
 		Status:  "ok",
-		Content: serverstats.NewServerStats(),
+		Content: serverstats.NewServerStats(s.cw),
 	}.Write(w, http.StatusOK)
 }
 

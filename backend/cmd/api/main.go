@@ -13,6 +13,7 @@ import (
 	"github.com/Alvesafk/blog-2/internal/db"
 	"github.com/Alvesafk/blog-2/internal/handlers"
 	mw "github.com/Alvesafk/blog-2/internal/middlewares"
+	"github.com/Alvesafk/blog-2/internal/serverstats"
 
 	"github.com/joho/godotenv"
 )
@@ -33,7 +34,8 @@ func main() {
 	}
 	defer database.Close()
 
-	con := handlers.NewConnection(database)
+	var cw serverstats.ConnectionWatcher
+	con := handlers.NewConnection(database, &cw)
 
 	mux := http.NewServeMux()
 
@@ -66,6 +68,7 @@ func main() {
 		WriteTimeout:      10 * time.Second,
 		IdleTimeout:       120 * time.Second,
 		ReadHeaderTimeout: 3 * time.Second,
+		ConnState: cw.OnStateChange,
 	}
 
 	go func() {

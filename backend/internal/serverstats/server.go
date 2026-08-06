@@ -8,16 +8,18 @@ import (
 )
 
 type ServerStats struct {
-	Goroutines int     `json:"goroutines"`
-	UsedMemory float64 `json:"usedMemory"`
-	UsedCPU    float64 `json:"usedCPU"`
+	Goroutines       int     `json:"goroutines"`
+	UsedMemory       float64 `json:"usedMemory"`
+	UsedCPU          float64 `json:"usedCPU"`
+	TotalConnections int64   `json:"totalConnections"`
 }
 
-func NewServerStats() *ServerStats {
+func NewServerStats(cw *ConnectionWatcher) *ServerStats {
 	return &ServerStats{
 		Goroutines: runtime.NumGoroutine(),
 		UsedMemory: getUsedMemory(),
 		UsedCPU:    getUsedCPU(),
+		TotalConnections: cw.Load(),
 	}
 }
 
