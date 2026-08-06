@@ -9,6 +9,8 @@ import (
 	"strconv"
 
 	"github.com/Alvesafk/blog-2/internal/db"
+	"github.com/Alvesafk/blog-2/internal/serverstats"
+
 	"github.com/yuin/goldmark"
 )
 
@@ -195,7 +197,7 @@ func (s *Connection) PostComment(w http.ResponseWriter, r *http.Request) {
 	if err := decoder.Decode(&c); err != nil {
 		Response{
 			Message: "invalid json",
-			Status: "Failed",
+			Status:  "Failed",
 		}.Write(w, http.StatusBadRequest)
 	}
 	defer r.Body.Close()
@@ -211,13 +213,13 @@ func (s *Connection) PostComment(w http.ResponseWriter, r *http.Request) {
 	if _, err := s.db.InsertComment(id, c.Content, c.Author); err != nil {
 		Response{
 			Message: "error on inserting comment",
-			Status: "Failed",
+			Status:  "Failed",
 		}.Write(w, http.StatusInternalServerError)
 	}
 
 	Response{
 		Message: "commented inserted",
-		Status: "ok",
+		Status:  "ok",
 	}.Write(w, http.StatusOK)
 }
 
@@ -225,6 +227,19 @@ func (s *Connection) HealthCheck(w http.ResponseWriter, r *http.Request) {
 	Response{
 		Message: "Success",
 		Status:  "healthy",
+	}.Write(w, http.StatusOK)
+}
+
+type serverStats struct {
+	goroutines int
+	usedMemory float64
+}
+
+func (s *Connection) GetServerStats(w http.ResponseWriter, r *http.Request) {
+	Response{
+		Message: "Success",
+		Status:  "ok",
+		Content: serverstats.NewServerStats(),
 	}.Write(w, http.StatusOK)
 }
 

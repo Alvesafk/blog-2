@@ -13,6 +13,7 @@ import (
 	"github.com/Alvesafk/blog-2/internal/db"
 	"github.com/Alvesafk/blog-2/internal/handlers"
 	mw "github.com/Alvesafk/blog-2/internal/middlewares"
+
 	"github.com/joho/godotenv"
 )
 
@@ -35,15 +36,20 @@ func main() {
 	con := handlers.NewConnection(database)
 
 	mux := http.NewServeMux()
+
+	// Get for posts, comments, guestbook...
 	mux.HandleFunc("GET /api/post", con.GetPosts)
 	mux.HandleFunc("GET /api/post/{slug}", con.GetPostBySlug)
 	mux.HandleFunc("GET /api/post/latest", con.GetLatestPost)
 	mux.HandleFunc("GET /api/post/comments/{id}", con.GetComments)
 	mux.HandleFunc("GET /api/currently", con.GetCurrently)
 
-	mux.HandleFunc("POST /api/post/{id}", con.PostComment)
-
+	// Get for server related handlers
+	mux.HandleFunc("GET /server/stats", con.GetServerStats)
 	mux.HandleFunc("GET /healthz", con.HealthCheck)
+
+	// Posts
+	mux.HandleFunc("POST /api/post/{id}", con.PostComment)
 
 	middlewareMux := mw.Chain(mux,
 		mw.RecoverMiddleware,
