@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/Alvesafk/blog-2/back/internal/models"
 	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -17,6 +18,10 @@ func New() (*gorm.DB, error) {
 
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
+		return nil, err
+	}
+
+	if err = db.AutoMigrate(&models.Post{}, &models.Comment{}, &models.Current{}); err != nil {
 		return nil, err
 	}
 
