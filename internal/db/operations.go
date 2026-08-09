@@ -67,7 +67,7 @@ func UpdatePost(db *gorm.DB, postID int, updatedPost models.Post) (*models.Post,
 		return nil, err
 	}
 
-	if err := db.Model(&post).Updates(updatedPost).Error; err != nil {
+	if err := db.Model(post).Updates(updatedPost).Error; err != nil {
 		return nil, err
 	}
 
