@@ -13,12 +13,11 @@ func CreatePost(db *gorm.DB, title, preview, content string, tags []string) (int
 		Tags:    tags,
 	}
 
-	result := db.Create(&post)
-	if result.Error != nil {
-		return -1, result.Error
+	if err := db.Create(&post).Error; err != nil {
+		return -1, err
 	}
 
-	return int(result.RowsAffected), nil
+	return int(post.ID), nil
 }
 
 func GetPostByID(db *gorm.DB, id int) (*models.Post, error) {
@@ -103,12 +102,11 @@ func CreateComment(db *gorm.DB, content, author string, postID int) (int, error)
 		PostID:  uint(postID),
 	}
 
-	result := db.Create(&comment)
-	if result.Error != nil {
-		return -1, result.Error
+	if err := db.Create(&comment).Error; err != nil {
+		return -1, err
 	}
 
-	return int(result.RowsAffected), nil
+	return int(comment.ID), nil
 }
 
 func GetCommentsByPostID(db *gorm.DB, postID int) ([]models.Comment, error) {
