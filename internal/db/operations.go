@@ -91,8 +91,7 @@ func DeletePostByID(db *gorm.DB, postID int) error {
 
 func CreateComment(db *gorm.DB, content, author string, postID int) (int, error) {
 	// Checking if post exists.
-	var post models.Post
-	if err := db.First(&post, postID).Error; err != nil {
+	if _, err := GetPostByID(db, postID); err != nil {
 		return -1, err
 	}
 
@@ -111,8 +110,7 @@ func CreateComment(db *gorm.DB, content, author string, postID int) (int, error)
 
 func GetCommentsByPostID(db *gorm.DB, postID int) ([]models.Comment, error) {
 	// Checking if post exists.
-	var post models.Post
-	if err := db.First(&post, postID).Error; err != nil {
+	if _, err := GetPostByID(db, postID); err != nil {
 		return nil, err
 	}
 
