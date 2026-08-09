@@ -71,7 +71,7 @@ func UpdatePost(db *gorm.DB, postID int, updatedPost models.Post) (*models.Post,
 		return nil, err
 	}
 
-	return &updatedPost, nil
+	return post, nil
 }
 
 func DeletePost(db *gorm.DB, post models.Post) error {
@@ -142,11 +142,11 @@ func UpdateComment(db *gorm.DB, commentID int, updatedComment models.Comment) (*
 		return nil, err
 	}
 
-	if err := db.Model(&comment).Updates(updatedComment).Error; err != nil {
+	if err := db.Model(comment).Updates(updatedComment).Error; err != nil {
 		return nil, err
 	}
 
-	return &updatedComment, nil
+	return comment, nil
 }
 
 func DeleteComment(db *gorm.DB, comment models.Comment) error {
