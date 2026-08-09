@@ -1,6 +1,8 @@
 package db
 
 import (
+	"fmt"
+
 	"github.com/Alvesafk/blog-2/back/internal/models"
 	"gorm.io/gorm"
 )
@@ -31,6 +33,10 @@ func GetPostByID(db *gorm.DB, id int) (*models.Post, error) {
 }
 
 func GetPostByTitle(db *gorm.DB, title string) (*models.Post, error) {
+	if title == "" {
+		return nil, fmt.Errorf("title string is empty")
+	}
+
 	var post models.Post
 
 	if err := db.First(&post, models.Post{Title: title}).Error; err != nil {
@@ -155,6 +161,67 @@ func DeleteComment(db *gorm.DB, comment models.Comment) error {
 
 func DeleteCommentByID(db *gorm.DB, commentID int) error {
 	if err := db.Delete(&models.Comment{}, commentID).Error; err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func CreateCurrent(db *gorm.DB, content string) (int, error) {
+	current := models.Current{
+		Content: content,
+	}
+
+	if err := db.Create(&current).Error; err != nil {
+		return -1, err
+	}
+
+	return int(current.ID), nil
+}
+
+func GetCurrentByID(db *gorm.DB, id int) (*models.Current, error) {
+	var current models.Current
+
+	if err := db.First(&current, "id = ?", id).Error; err != nil {
+		return nil, err
+	}
+
+	return &current, nil
+}
+
+func GetMostCurrent(db *gorm.DB) (*models.Current, error) {
+	var current models.Current
+
+	if err := db.Last(&current).Error; err != nil {
+		return nil, err
+	}
+
+	return &current, nil
+}
+
+func UpdateCurrent(db *gorm.DB, currentID int, updatedCurrent models.Current) (*models.Current, error) {
+	current, err := GetCurrentByID(db, currentID)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := db.Model(current).Updates(updatedCurrent).Error; err != nil {
+		return nil, err
+	}
+
+	return current, nil
+}
+
+func DeleteCurrent(db *gorm.DB, current models.Current) error {
+	if err := db.Delete(&current).Error; err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func DeleteCurrentByID(db *gorm.DB, currentID int) error {
+	if err := db.Delete(&models.Current{}, currentID).Error; err != nil {
 		return err
 	}
 
