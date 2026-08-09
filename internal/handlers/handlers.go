@@ -26,7 +26,11 @@ func (r Response) WriteJSON(w http.ResponseWriter, h int) {
 
 	enc := json.NewEncoder(w)
 	enc.SetEscapeHTML(false)
-	enc.Encode(r)
+
+	err := enc.Encode(r)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+	}
 }
 
 func (c Connection) GetHelloWorld(w http.ResponseWriter, r *http.Request) {
