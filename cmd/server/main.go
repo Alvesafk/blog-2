@@ -13,6 +13,7 @@ import (
 
 	"github.com/Alvesafk/blog-2/back/internal/db"
 	"github.com/Alvesafk/blog-2/back/internal/handlers"
+	"github.com/Alvesafk/blog-2/back/internal/middlewares"
 
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/chi/v5"
@@ -47,6 +48,8 @@ func defRouter(conn handlers.Connection) chi.Router {
 
 	r.Use(middleware.Logger)
 	r.Use(middleware.Recoverer)
+	r.Use(middlewares.SecurityHeadersMiddleware)
+	r.Use(middlewares.RateLimiterMiddleware)
 
 	r.Get("/hello", conn.GetHelloWorld)
 
