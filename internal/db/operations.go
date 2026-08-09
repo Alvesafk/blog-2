@@ -24,7 +24,7 @@ func CreatePost(db *gorm.DB, title, preview, content string, tags []string) (int
 func GetPostByID(db *gorm.DB, id int) (*models.Post, error) {
 	var post models.Post
 
-	if err := db.First(&post, "id = ?", "int_primary_key").Error; err != nil {
+	if err := db.First(&post, "id = ?", id).Error; err != nil {
 		return nil, err
 	}
 
@@ -129,7 +129,7 @@ func GetCommentsByPostID(db *gorm.DB, postID int) ([]models.Comment, error) {
 func GetCommentByID(db *gorm.DB, id int) (*models.Comment, error) {
 	var comment models.Comment
 
-	if err := db.First(&comment, "id = ?", "int_primary_key").Error; err != nil {
+	if err := db.First(&comment, "id = ?", id).Error; err != nil {
 		return nil, err
 	}
 
