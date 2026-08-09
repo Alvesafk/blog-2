@@ -24,9 +24,8 @@ func CreatePost(db *gorm.DB, title, preview, content string, tags []string) (int
 func GetPostByID(db *gorm.DB, id int) (*models.Post, error) {
 	var post models.Post
 
-	result := db.First(&post, "id = ?", "int_primary_key")
-	if result.Error != nil {
-		return nil, result.Error
+	if err := db.First(&post, "id = ?", "int_primary_key").Error; err != nil {
+		return nil, err
 	}
 
 	return &post, nil
@@ -35,9 +34,8 @@ func GetPostByID(db *gorm.DB, id int) (*models.Post, error) {
 func GetPostByTitle(db *gorm.DB, title string) (*models.Post, error) {
 	var post models.Post
 
-	result := db.First(&post, models.Post{Title: title})
-	if result.Error != nil {
-		return nil, result.Error
+	if err := db.First(&post, models.Post{Title: title}).Error; err != nil {
+		return nil, err
 	}
 
 	return &post, nil
@@ -46,9 +44,8 @@ func GetPostByTitle(db *gorm.DB, title string) (*models.Post, error) {
 func GetAllPosts(db *gorm.DB) ([]models.Post, error) {
 	var posts []models.Post
 
-	result := db.Find(&posts)
-	if result.Error != nil {
-		return nil, result.Error
+	if err := db.Find(&posts).Error; err != nil {
+		return nil, err
 	}
 
 	return posts, nil
@@ -57,9 +54,8 @@ func GetAllPosts(db *gorm.DB) ([]models.Post, error) {
 func GetMostRecentPost(db *gorm.DB) (*models.Post, error) {
 	var post models.Post
 
-	result := db.Last(&post)
-	if result.Error != nil {
-		return nil, result.Error
+	if err := db.Last(&post).Error; err != nil {
+		return nil, err
 	}
 
 	return &post, nil
@@ -71,27 +67,24 @@ func UpdatePost(db *gorm.DB, postID int, updatedPost models.Post) (*models.Post,
 		return nil, err
 	}
 
-	result := db.Model(&post).Updates(updatedPost)
-	if result.Error != nil {
-		return nil, result.Error
+	if err := db.Model(&post).Updates(updatedPost).Error; err != nil {
+		return nil, err
 	}
 
 	return &updatedPost, nil
 }
 
 func DeletePost(db *gorm.DB, post models.Post) error {
-	result := db.Delete(&post)
-	if result.Error != nil {
-		return result.Error
+	if err := db.Delete(&post).Error; err != nil {
+		return err
 	}
 
 	return nil
 }
 
 func DeletePostByID(db *gorm.DB, postID int) error {
-	result := db.Delete(&models.Post{}, postID)
-	if result.Error != nil {
-		return result.Error
+	if err := db.Delete(&models.Post{}, postID).Error; err != nil {
+		return err
 	}
 
 	return nil
@@ -149,9 +142,8 @@ func UpdateComment(db *gorm.DB, commentID int, updatedComment models.Comment) (*
 		return nil, err
 	}
 
-	result := db.Model(&comment).Updates(updatedComment)
-	if result.Error != nil {
-		return nil, result.Error
+	if err := db.Model(&comment).Updates(updatedComment).Error; err != nil {
+		return nil, err
 	}
 
 	return &updatedComment, nil
