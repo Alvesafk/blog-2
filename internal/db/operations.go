@@ -4,15 +4,21 @@ import (
 	"fmt"
 
 	"github.com/Alvesafk/blog-2/back/internal/models"
+	"github.com/Alvesafk/blog-2/back/internal/validation"
 	"gorm.io/gorm"
 )
 
 func CreatePost(db *gorm.DB, title, preview, content string, tags []string) (int, error) {
-	post := models.Post{
+	unsanitizedPost := models.Post{
 		Title:   title,
 		Preview: preview,
 		Content: content,
 		Tags:    tags,
+	}
+
+	post, err := validation.SanitizePost(unsanitizedPost)
+	if err != nil {
+		return -1, err
 	}
 
 	if err := db.Create(&post).Error; err != nil {
@@ -101,13 +107,18 @@ func CreateComment(db *gorm.DB, content, author string, postID int) (int, error)
 		return -1, err
 	}
 
-	comment := models.Comment{
+	unsanitizedComment := models.Comment{
 		Content: content,
 		Author:  author,
 		PostID:  uint(postID),
 	}
 
-	if err := db.Create(&comment).Error; err != nil {
+	comment, err := validation.SanitizeComment(unsanitizedComment)
+	if err != nil {
+		return -1, err
+	}
+
+	if err = db.Create(&comment).Error; err != nil {
 		return -1, err
 	}
 
