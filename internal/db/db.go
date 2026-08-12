@@ -30,7 +30,7 @@ func New() (*gorm.DB, error) {
 
 func getDSNString() (string, error) {
 	if err := godotenv.Load(); err != nil {
-		return "", err 
+		return "", err
 	}
 
 	d := map[string]string{

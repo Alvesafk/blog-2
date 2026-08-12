@@ -7,10 +7,10 @@ import (
 
 type Post struct {
 	gorm.Model
-	Title     string         `json:"title"`
-	Preview   string         `json:"preview"`
-	Content   string         `json:"content"`
-	Tags      pq.StringArray `json:"tags" gorm:"type:text[]"`
+	Title   string         `json:"title"`
+	Preview string         `json:"preview"`
+	Content string         `json:"content"`
+	Tags    pq.StringArray `json:"tags" gorm:"type:text[]"`
 }
 
 type Comment struct {
