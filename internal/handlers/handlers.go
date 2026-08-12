@@ -25,7 +25,7 @@ func (r Response) WriteJSON(w http.ResponseWriter, h int) {
 	w.WriteHeader(h)
 
 	enc := json.NewEncoder(w)
-	enc.SetEscapeHTML(false)
+	enc.SetEscapeHTML(true)
 
 	err := enc.Encode(r)
 	if err != nil {
