@@ -17,7 +17,16 @@ import (
 
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/chi/v5"
+	"github.com/joho/godotenv"
+	"github.com/kashifkhan0771/utils/browser"
 )
+
+func init() {
+	if err := godotenv.Load(); err != nil {
+		log.Fatal("Error: Could not read the env file, aborting.")
+		os.Exit(1)
+	}
+}
 
 func main() {
 	ctx := context.Background()
@@ -60,11 +69,20 @@ func run(ctx context.Context, s *http.Server) error {
 	serverError := make(chan error, 1)
 
 	go func() {
-		log.Printf("Server is running on http//localhost%s", s.Addr)
+		log.Printf("Server is running on http://localhost%s", s.Addr)
 		if err := s.ListenAndServe(); !errors.Is(err, http.ErrServerClosed) {
 			serverError <- err
 		}
 	}()
+
+	if os.Getenv("DEBUG") != "" && os.Getenv("DEBUG") == "true" {
+		go func() {
+			if err := browser.OpenURL("http://localhost" + s.Addr); err != nil {
+				log.Fatalf("Error: Could not open the browser. %s", err)
+				return
+			}
+		}()
+	}
 
 	stop := make(chan os.Signal, 1)
 	signal.Notify(stop, os.Interrupt, syscall.SIGTERM)
