@@ -76,12 +76,9 @@ func run(ctx context.Context, s *http.Server) error {
 	}()
 
 	if os.Getenv("DEBUG") != "" && os.Getenv("DEBUG") == "true" {
-		go func() {
-			if err := browser.OpenURL("http://localhost" + s.Addr); err != nil {
-				log.Fatalf("Error: Could not open the browser. %s", err)
-				return
-			}
-		}()
+		if err := browser.OpenURL("http://localhost" + s.Addr); err != nil {
+			log.Fatalf("Error: Could not open the browser. %s", err)
+		}
 	}
 
 	stop := make(chan os.Signal, 1)
