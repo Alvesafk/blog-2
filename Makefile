@@ -1,6 +1,6 @@
 SHELL := /bin/sh
 
-.PHONY: help fmt lint test test-cover test-race test-benchmark vet staticcheck bench 
+.PHONY: help fmt lint test test-cover test-race test-benchmark vet staticcheck bench sqlc-gen
 
 help:
 	@printf '%s\n' \
@@ -13,6 +13,7 @@ help:
 		'make vet            run go vet' \
 		'make staticcheck    run staticcheck when installed' \
 		'make bench          run benchmarks' \
+		'make sqlc-gen       run sqlc-gen' \
 
 fmt:
 	gofmt -s -w $$(find . -name '*.go' -type f)
@@ -41,3 +42,6 @@ staticcheck:
 
 bench:
 	go test -bench=. -benchmem ./...
+
+sqlc-gen:
+	sqlc generate
