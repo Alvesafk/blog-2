@@ -5,7 +5,7 @@ CREATE TABLE comments(
 	body TEXT NOT NULL,
 	created_at TIMESTAMP NOT NULL,
 	updated_at TIMESTAMP NOT NULL,
-	post_title TEXT NOT NULL CONSTRAINT fk_post_title REFERENCES posts(slug_title)
+	post_id INTEGER NOT NULL CONSTRAINT fk_post_id REFERENCES posts(id)
 );
 -- +goose Down
 DROP TABLE comments;

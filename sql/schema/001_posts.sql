@@ -1,7 +1,9 @@
 -- +goose Up
 CREATE TABLE posts(
-	slug_title TEXT PRIMARY KEY,
+	id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	slug_title TEXT NOT NULL,
 	title TEXT NOT NULL,
+	body TEXT NOT NULL,
 	created_at TIMESTAMP NOT NULL,
 	updated_at TIMESTAMP NOT NULL,
 	tags TEXT []NOT NULL
