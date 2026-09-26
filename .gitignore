@@ -3,3 +3,4 @@
 .python-version
 .sqls/
 instance/
+__pycache__/
