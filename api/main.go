@@ -1,9 +1,9 @@
 package main
 
-import (
-	"fmt"
-)
+import "github.com/Alvesafk/blog-2/api/internal/server"
 
 func main() {
-	fmt.Println("Hello, World!")
+	srv := server.New()
+
+	srv.Run()
 }
