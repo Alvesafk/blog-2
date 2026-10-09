@@ -1,9 +1,20 @@
 package main
 
-import "github.com/Alvesafk/blog-2/api/internal/server"
+import (
+	"context"
+	"log"
+
+	"github.com/Alvesafk/blog-2/api/internal/server"
+)
 
 func main() {
-	srv := server.New()
+	ctx := context.Background()
+
+	srv, err := server.New(ctx)
+	if err != nil {
+		log.Println("Error: could not create a server config:", err)
+		return
+	}
 
 	srv.Run()
 }
