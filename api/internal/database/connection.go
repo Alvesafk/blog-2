@@ -31,5 +31,9 @@ func Open(dbName string) (*Connection, error) {
 
 // No model yet to migrate so will just return nil, for now!
 func migrate(db *gorm.DB) error {
+	if err := db.AutoMigrate(&Post{}); err != nil {
+		return err
+	}
+
 	return nil
 }
