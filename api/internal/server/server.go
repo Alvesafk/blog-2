@@ -20,7 +20,7 @@ func New(ctx context.Context) (*Server, error) {
 	}
 
 	return &Server{
-		router: handlers.NewRouter(conn),
+		router: handlers.New(conn),
 		conn:   conn,
 	}, nil
 }

@@ -5,7 +5,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func NewRouter(conn *database.Connection) *gin.Engine {
+type Handler struct {
+	conn *database.Connection
+}
+
+func New(conn *database.Connection) *gin.Engine {
 	h := &Handler{conn: conn}
 
 	r := gin.Default()
