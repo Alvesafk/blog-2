@@ -1,0 +1,14 @@
+---
+import Public from '../layouts/Public.astro';
+
+const { title, postTitle, createdAt } = Astro.props;
+---
+
+<Public title={title}>
+	<div>
+		<a href="/">Home</a>
+		<h2>{postTitle}</h2>
+	</div>
+	<slot/>
+	<div>Posted at {createdAt}</div>
+</Public>
