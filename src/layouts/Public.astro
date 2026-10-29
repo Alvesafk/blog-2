@@ -9,11 +9,13 @@ import Footer from '../components/Footer.astro';
 // Tailwind import.
 import "../styles/global.css";
 
-const { title } = Astro.props;
+import { SITE_TITLE } from '../consts.ts';
+
+const { pageTitle } = Astro.props;
 ---
 
 <html lang="en">
-	<Head title={title}/>
+	<Head title={`${SITE_TITLE} - ${pageTitle}`}/>
 	<body>
 		<Header />
 		<main>
