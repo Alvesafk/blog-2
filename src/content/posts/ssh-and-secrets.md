@@ -5,8 +5,6 @@ tags: ["Programming", "Life", "Go"]
 createdAt: "Jun 01 2026"
 ---
 
-# SSH and secrets
-
 So, hey... i lost the **SSH** key to the instance of this blog...
 
 I formatted my pc and forgot about the SSH keys, so i can't really update the blog anymore, which sucks because that are a lot of things that i wanted to implement and that i kinda hate on the state that it is right now.

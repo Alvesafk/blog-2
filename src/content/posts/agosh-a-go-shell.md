@@ -5,8 +5,6 @@ tags: ["Programming", "Go", "Shell"]
 createdAt: "May 16 2026"
 ---
 
-# Agosh, a go shell
-
 Hello! In the last few days i got kinda of hooked on the Go Programming Language, so, to understand it better (also for funsies) i decided to do a small project, that project is agosh.
 
 Originaly i called gosh but obviously in the world of programming you don't really create nothing, so, a go shell project called gosh already exists, =( so i changed to a go shell, but whatever!

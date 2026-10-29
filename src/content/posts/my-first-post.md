@@ -5,8 +5,6 @@ tags: ["Programming", "Life"]
 createdAt: "Apr 30 2026"
 ---
 
-# First post, why and what is the blog.
-
 So, for my first post on the blog i wanna breakdown i little of how and why i made this blog the way it is, also to talk a little about what i want to do with the blog.
 
 ## First things first
