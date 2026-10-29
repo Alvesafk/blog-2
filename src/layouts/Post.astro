@@ -1,6 +1,8 @@
 ---
 import Public from '../layouts/Public.astro';
 
+import FormattedDate from '../components/FormattedDate.astro';
+
 interface Props {
 	title: string;
 	createdAt: Date;
@@ -15,5 +17,5 @@ const { title, createdAt } = Astro.props;
 		<h2>{title}</h2>
 	</div>
 	<slot/>
-	<div>Posted at {createdAt}</div>
+	<div>Posted at <FormattedDate date={createdAt} /></div>
 </Public>
