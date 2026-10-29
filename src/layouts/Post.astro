@@ -1,6 +1,11 @@
 ---
 import Public from '../layouts/Public.astro';
 
+interface Props {
+	title: string;
+	createdAt: Date;
+}
+
 const { title, createdAt } = Astro.props;
 ---
 
