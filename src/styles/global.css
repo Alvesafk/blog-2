@@ -8,6 +8,8 @@
 @layer base {
   body {
     font-family: var(--font-text);
+
+    @apply text-mauve-800 bg-mist-50;
   }
 
   h1,
@@ -15,5 +17,7 @@
   h3,
   h4 {
     font-family: var(--font-display);
+
+    @apply text-mauve-800;
   }
 }
