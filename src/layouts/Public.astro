@@ -20,9 +20,9 @@ const { pageTitle } = Astro.props;
 
 <html lang="en">
 	<Head title={`${SITE_TITLE} - ${pageTitle}`}/>
-	<body>
+	<body class="flex flex-col min-h-screen">
 		<Header />
-		<main>
+		<main class="grow">
 			<slot />
 		</main>
 		<Footer />
