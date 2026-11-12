@@ -1,35 +1,38 @@
 ---
-import Public from '../layouts/Public.astro'
+import Public from '../layouts/Public.astro';
+import { Image } from 'astro:assets';
+import homeImage from '../assets/img/home.jpeg';
 ---
 
 <Public pageTitle="Home Page">
-	<div>
-		<article>
-			<div>
-				<h2>Welcome</h2>
+	<div class="flex justify-around w-4xl mx-auto text-xl">
+		<article class="w-xl">
+			<div class="mb-4">
+				<h2 class="text-2xl">This is a blog</h2>
 				<p>
-					Hello!!! Welcome to my blog on the <i>*Web of Lies*</i>.
-					I talk about development, tech and some other stuff, this
-					is actually the second iteration of this blog (if you don't
-					consider all the versions that i made and didn't like it!),
-					this one is made with the <a href="https://astro.build" target="_blank">Astro </a>
-					framework.
+					I write some stuff here, feel free to read it.
 				</p>
 			</div>
 
-			<div>
-				<h2>Social links</h2>
+			<div class="mb-4">
+				<h2 class="text-2xl">Maybe not?</h2>
+				<p>Super social links and stuff</p>
+				<ul>
+					<li>Github</li>
+					<li>Email</li>
+					<li>Curriculum</li>
+				</ul>
+			</div>
+
+			<div class="mb-4">
+				<h2 class="text-2xl">Tech used here</h2>
 				<p>
-					<ul>
-						<li>Github</li>
-						<li>Email</li>
-						<li>Curriculum</li>
-					</ul>
+					I went through lots and lots of different iterations of this blog. The original one was made with the <a href="https://django.com">Django</a> framework, a shame i lost the SSH key of the Oracle instance that was running it. So, the missing SSH key and the different stuff that i was studying at the time made me feel the desire to make a new blog, it just took me... 6 months to decide how i wanted to do it. So... the stack is... <a href="#">Astro</a> framework and <a href="#">Tailwind</a>, just that. I will explain better the decisions in a post.
 				</p>
 			</div>
 		</article>
 		<section>
-			<!-- Image -->
+			<Image src={homeImage} alt="Super cool image of the Schrodinger Cat" width="340" height="540"/>
 		</section>
 	</div>
 </Public>

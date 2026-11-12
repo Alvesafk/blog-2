@@ -5,11 +5,16 @@
   --font-display: var(--font-advercase);
 }
 
+@theme {
+  --main-bg: #fefefe;
+}
+
 @layer base {
   body {
     font-family: var(--font-text);
+    background-color: var(--main-bg);
 
-    @apply text-mauve-800 bg-mist-50;
+    @apply text-mauve-800;
   }
 
   h1,
