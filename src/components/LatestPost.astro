@@ -23,8 +23,8 @@ const latestPost = (await getCollection("posts")).sort(
 ---
 
 <div>
-	<h2 class="text-2xl">This is my latest post</h2>
-	<div>
+	<h2 class="text-2xl underline">This is my latest post</h2>
+	<div class="p-2 border">
 		<header>
 			<a href={"/post/" + latestPost.id}>
 				<h3 class="underline">{latestPost.data.title}</h3>
