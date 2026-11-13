@@ -3,24 +3,19 @@ import Public from '../layouts/Public.astro';
 import { Image } from 'astro:assets';
 import homeImage from '../assets/img/home.jpeg';
 import LatestPost from '../components/LatestPost.astro';
+import Link from '../components/Link.astro';
 ---
 
 <Public pageTitle="Home Page">
-	<div class="flex justify-around w-5xl mx-auto text-xl">
+	<div class="flex justify-between w-5xl mx-auto text-xl">
 		<article class="w-xl mr-8">
-			<div class="mb-4">
-				<h2 class="text-2xl">This is a blog</h2>
-				<p>
-					I write some stuff here, feel free to read it.
-				</p>
-			</div>
+			<LatestPost/>
 
-			<div class="mb-4">
-				<h2 class="text-2xl">Maybe not?</h2>
-				<p>Super social links and stuff</p>
+			<div class="my-4">
+				<h2 class="text-2xl">Links</h2>
 				<ul>
-					<li><a href="https://github.com/Alvesafk">Github</a></li>
-					<li><a href="mailto:migueldealmeidaalves55@gmail.com">Email</a></li>
+					<li><Link path="https://github.com/Alvesafk" target='_blank'>Github</Link></li>
+					<li><Link path="mailto:migueldealmeidaalves55@gmail.com">Email</Link></li>
 					<li>Curriculum</li>
 				</ul>
 			</div>
@@ -28,14 +23,11 @@ import LatestPost from '../components/LatestPost.astro';
 			<div class="mb-4">
 				<h2 class="text-2xl">Tech used here</h2>
 				<p>
-					<a href="https://astro.build" target="_blank">Astro</a>, <a href="https://tailwindcss.com" target="_blank">Tailwind</a>,
-					<a href="https://www.typescriptlang.org/" target="_blank"> Typescript</a>, <a href="https://viteplus.dev/" target="_blank">Vite+</a>,
+					<Link path="https://astro.build" target="_blank">Astro</Link>, <Link path="https://tailwindcss.com" target="_blank">Tailwind</Link>,
+					<Link path="https://www.typescriptlang.org/" target="_blank"> Typescript</Link>, <Link path="https://viteplus.dev/" target="_blank">Vite+</Link>,
 					this type of stoff
 				</p>
 			</div>
-
-			<LatestPost/>
-
 		</article>
 		<section>
 			<Image src={homeImage} alt="Super cool image of the Schrodinger Cat" width="540" height="740"/>
