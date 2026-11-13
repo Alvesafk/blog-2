@@ -22,7 +22,5 @@
 	h3,
 	h4 {
 		font-family: var(--font-display);
-
-		@apply text-mauve-800;
 	}
 }
