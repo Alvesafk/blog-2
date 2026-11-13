@@ -1,5 +1,21 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
+
+type Post = CollectionEntry<'posts'>;
+
+function getLatestPostTags(post: Post): string {
+	if (post.data.tags.length < 1) {
+		return ""
+	}
+
+	let result = "";
+
+	for (let tag of post.data.tags) {
+		result += tag + ", "
+	}
+
+	return result.slice(0, result.length - 2)
+}
 
 const latestPost = (await getCollection("posts")).sort(
 	(a, b) => b.data.createdAt.valueOf() - a.data.createdAt.valueOf(),
@@ -17,12 +33,14 @@ const latestPost = (await getCollection("posts")).sort(
 		<div class="text-md">
 			<a href={"/post/" + latestPost.id}>
 				<p>{latestPost.data.description}</p>
-				<p>{latestPost.data.tags.map((tag) => (
-					<small class="text-sm">
-						{tag + " "}
-					</small>
-					))}
-				</p>
+				<div class="flex justify-between">
+					<div>
+						<small class="text-sm">{getLatestPostTags(latestPost)}</small>
+					</div>
+					<div>
+						<small class="text-sm">Read it in {latestPost.data.readTime} minutes</small>
+					</div>
+				</div>
 			</a>
 		</div>
 	</div>
