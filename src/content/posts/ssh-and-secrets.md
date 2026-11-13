@@ -3,6 +3,8 @@ title: "SSH and secrets"
 description: "A post about a mistake and some projects, opsiess."
 tags: ["Programming", "Life", "Go"]
 createdAt: "Jun 01 2026"
+imgURL: "../../assets/img/home.jpeg"
+readTime: 8
 ---
 
 So, hey... i lost the **SSH** key to the instance of this blog...

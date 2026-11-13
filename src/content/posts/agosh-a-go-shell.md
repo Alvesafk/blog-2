@@ -3,6 +3,8 @@ title: "Agosh, a go shell"
 description: "Hello! In the last few days i got kinda of hooked on the Go Programming Language, so, to understand it better (also for funsies) i decided to do a small project, that project is agosh."
 tags: ["Programming", "Go", "Shell"]
 createdAt: "May 16 2026"
+imgURL: "../../assets/img/home.jpeg"
+readTime: 8
 ---
 
 Hello! In the last few days i got kinda of hooked on the Go Programming Language, so, to understand it better (also for funsies) i decided to do a small project, that project is agosh.

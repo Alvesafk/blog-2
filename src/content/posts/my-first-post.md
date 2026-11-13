@@ -3,6 +3,8 @@ title: "First post!"
 description: "So, for my first post on the blog i wanna breakdown i little of how and why i made this blog the way it is, also to talk a little about what i want to do with the blog."
 tags: ["Programming", "Life"]
 createdAt: "Apr 30 2026"
+imgURL: "../../assets/img/home.jpeg"
+readTime: 8
 ---
 
 So, for my first post on the blog i wanna breakdown i little of how and why i made this blog the way it is, also to talk a little about what i want to do with the blog.
