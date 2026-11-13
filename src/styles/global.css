@@ -1,28 +1,28 @@
 @import "tailwindcss";
 
 @theme inline {
-  --font-text: var(--font-libron);
-  --font-display: var(--font-advercase);
+	--font-text: var(--font-libron);
+	--font-display: var(--font-advercase);
 }
 
 @theme {
-  --main-bg: #fefefe;
+	--main-bg: #fefefe;
 }
 
 @layer base {
-  body {
-    font-family: var(--font-text);
-    background-color: var(--main-bg);
+	body {
+		font-family: var(--font-text);
+		background-color: var(--main-bg);
 
-    @apply text-mauve-800;
-  }
+		@apply text-mauve-800;
+	}
 
-  h1,
-  h2,
-  h3,
-  h4 {
-    font-family: var(--font-display);
+	h1,
+	h2,
+	h3,
+	h4 {
+		font-family: var(--font-display);
 
-    @apply text-mauve-800;
-  }
+		@apply text-mauve-800;
+	}
 }
