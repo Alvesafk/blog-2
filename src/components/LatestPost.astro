@@ -23,8 +23,8 @@ const latestPost = (await getCollection("posts")).sort(
 ---
 
 <div>
-	<h2 class="text-2xl underline">This is my latest post</h2>
-	<div class="p-2 border">
+	<h2 class="text-2xl">This is my latest post</h2>
+	<div class="p-2 text-mauve-900 hover:text-sky-700 duration-200 transition-all">
 		<header>
 			<a href={"/post/" + latestPost.id}>
 				<h3 class="underline">{latestPost.data.title}</h3>
@@ -38,7 +38,7 @@ const latestPost = (await getCollection("posts")).sort(
 						<small class="text-sm">{getLatestPostTags(latestPost)}</small>
 					</div>
 					<div>
-						<small class="text-sm">Read it in {latestPost.data.readTime} minutes</small>
+						<small class="text-sm">{latestPost.data.readTime} min read</small>
 					</div>
 				</div>
 			</a>
